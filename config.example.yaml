@@ -1,0 +1,28 @@
+# Sample configuration for the Polymarket latency arbitrage bot.
+log_level: INFO
+kraken_ws_url: "wss://ws.kraken.com"
+kraken_pair: "XBT/USDT"
+polymarket_ws_url: "wss://ws-subscriptions-clob.polymarket.com/ws"
+polymarket_api_url: "https://clob.polymarket.com"
+polygon_chain_id: 137
+metrics_port: 9100
+
+# NEVER commit real secrets. Use environment variables or a private config file.
+private_key: "${PRIVATE_KEY}"
+api_key: "${POLYMARKET_API_KEY}"
+api_secret: "${POLYMARKET_API_SECRET}"
+api_passphrase: "${POLYMARKET_API_PASSPHRASE}"
+
+markets:
+  - market_id: "btc-2025-01-15-up-down"
+    symbol: "xbt/usdt"
+    yes_token_id: "<YES_TOKEN_ID>"
+    no_token_id: "<NO_TOKEN_ID>"
+    yes_is_upside: true
+    threshold_pct: 0.02
+    max_position: 500.0
+
+risk:
+  max_notional_per_trade: 100.0
+  max_trades_per_minute: 60
+  self_slippage_buffer_pct: 0.001

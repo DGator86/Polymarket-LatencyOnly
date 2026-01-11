@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "polymarket-latency-bot"
+version = "0.1.0"
+description = "High-frequency latency arbitrage bot between Kraken spot and Polymarket"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "Auto Generated" }
+]
+license = { text = "MIT" }
+dependencies = [
+  "websockets>=12.0",
+  "httpx>=0.26",
+  "python-dotenv>=1.0",
+  "pyyaml>=6.0",
+  "pydantic>=2.5",
+  "py-clob-client>=0.12"
+]
+
+[project.scripts]
+polymarket-latency-bot = "latency_bot.runner:main"
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4",
+  "ruff>=0.1.9"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

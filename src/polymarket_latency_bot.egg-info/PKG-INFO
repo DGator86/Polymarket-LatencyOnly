@@ -1,0 +1,17 @@
+Metadata-Version: 2.4
+Name: polymarket-latency-bot
+Version: 0.1.0
+Summary: High-frequency latency arbitrage bot between Kraken spot and Polymarket
+Author: Auto Generated
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: websockets>=12.0
+Requires-Dist: httpx>=0.26
+Requires-Dist: python-dotenv>=1.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: pydantic>=2.5
+Requires-Dist: py-clob-client>=0.12
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4; extra == "dev"
+Requires-Dist: ruff>=0.1.9; extra == "dev"

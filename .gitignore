@@ -1,0 +1,19 @@
+# Environments
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+*.log
+
+# Rust
+target/
+**/*.rs.bk
+
+# OS
+.DS_Store
