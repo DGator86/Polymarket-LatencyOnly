@@ -10,7 +10,7 @@ Always load keys from environment variables (`.env`) and never commit them to ve
 ## Prerequisites
 
 - **Python 3.10+**
-- **Polymarket API Keys** (from https://polymarket.com/profile)
+- **Polymarket API Keys** (generate via https://docs.polymarket.com/developers/market-makers/setup#api-key-generation)
 - **Polygon RPC Node** (Dedicated node recommended for speed)
 - **VPS Location**: Amsterdam (to minimize latency to Polymarket servers)
 
@@ -32,6 +32,24 @@ Always load keys from environment variables (`.env`) and never commit them to ve
    - `POLY_API_KEY`: API Key from Polymarket
    - `POLY_API_SECRET`: API Secret
    - `POLY_API_PASSPHRASE`: API Passphrase
+
+## Generate API credentials (optional helper)
+
+If you need to create API credentials from your wallet private key, you can use
+`py_clob_client` directly:
+
+```python
+from py_clob_client.client import ClobClient
+import os
+
+host = "https://clob.polymarket.com"
+key = os.getenv("POLY_KEY")
+chain_id = 137
+
+client = ClobClient(host, key=key, chain_id=chain_id)
+credentials = client.create_or_derive_api_creds()
+print(credentials.api_key, credentials.api_secret, credentials.passphrase)
+```
 
 ## Strategy Logic
 
