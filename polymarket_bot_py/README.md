@@ -10,7 +10,7 @@ Always load keys from environment variables (`.env`) and never commit them to ve
 ## Prerequisites
 
 - **Python 3.10+**
-- **Polymarket API Keys** (from https://polymarket.com/profile)
+- **Polymarket API Keys** (generate via https://docs.polymarket.com/developers/market-makers/setup#api-key-generation)
 - **Polygon RPC Node** (Dedicated node recommended for speed)
 - **VPS Location**: Amsterdam (to minimize latency to Polymarket servers)
 
