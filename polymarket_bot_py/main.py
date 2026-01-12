@@ -46,6 +46,18 @@ def load_required_env() -> Dict[str, str]:
         )
         raise SystemExit(1)
     return {name: os.getenv(name, "") for name in REQUIRED_ENV_VARS}
+DUMMY_PRIVATE_KEY = "0x" + "0" * 64
+DUMMY_API_KEY = "00000000-0000-0000-0000-000000000000"
+DUMMY_API_SECRET = "0" * 64
+DUMMY_API_PASSPHRASE = "your_passphrase"
+
+
+def env_or_dummy(name: str, dummy_value: str) -> str:
+    value = os.getenv(name)
+    if not value:
+        logger.warning("Missing %s env var; using dummy placeholder.", name)
+        return dummy_value
+    return value
 
 # ... (Security Check remains) ...
 
@@ -100,6 +112,7 @@ class BinanceTracker:
 class PolyClientWrapper:
     def __init__(self):
         self.host = os.getenv("POLY_HOST", "https://clob.polymarket.com")
+        self.key = env_or_dummy("POLY_KEY", DUMMY_PRIVATE_KEY)
         self.chain_id = int(os.getenv("CHAIN_ID", 137))
         env = load_required_env()
         self.key = env["POLY_KEY"]
@@ -107,6 +120,9 @@ class PolyClientWrapper:
             api_key=env["POLY_API_KEY"],
             api_secret=env["POLY_API_SECRET"],
             api_passphrase=env["POLY_API_PASSPHRASE"],
+            api_key=env_or_dummy("POLY_API_KEY", DUMMY_API_KEY),
+            api_secret=env_or_dummy("POLY_API_SECRET", DUMMY_API_SECRET),
+            api_passphrase=env_or_dummy("POLY_API_PASSPHRASE", DUMMY_API_PASSPHRASE)
         )
         
         try:
