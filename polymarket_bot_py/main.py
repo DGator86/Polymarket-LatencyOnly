@@ -28,6 +28,25 @@ TIME_WINDOW_SECONDS = 5
 POLL_INTERVAL_MS = 100
 DRY_RUN = True
 
+REQUIRED_ENV_VARS = (
+    "POLY_KEY",
+    "POLY_API_KEY",
+    "POLY_API_SECRET",
+    "POLY_API_PASSPHRASE",
+)
+
+
+def load_required_env() -> Dict[str, str]:
+    missing = [name for name in REQUIRED_ENV_VARS if not os.getenv(name)]
+    if missing:
+        logger.error(
+            "Missing required environment variables: %s. "
+            "Copy .env.example to .env and fill in your real credentials.",
+            ", ".join(missing),
+        )
+        raise SystemExit(1)
+    return {name: os.getenv(name, "") for name in REQUIRED_ENV_VARS}
+
 # ... (Security Check remains) ...
 
 class BinanceTracker:
@@ -81,12 +100,13 @@ class BinanceTracker:
 class PolyClientWrapper:
     def __init__(self):
         self.host = os.getenv("POLY_HOST", "https://clob.polymarket.com")
-        self.key = os.getenv("POLY_KEY")
         self.chain_id = int(os.getenv("CHAIN_ID", 137))
+        env = load_required_env()
+        self.key = env["POLY_KEY"]
         self.creds = ApiCreds(
-            api_key=os.getenv("POLY_API_KEY"),
-            api_secret=os.getenv("POLY_API_SECRET"),
-            api_passphrase=os.getenv("POLY_API_PASSPHRASE")
+            api_key=env["POLY_API_KEY"],
+            api_secret=env["POLY_API_SECRET"],
+            api_passphrase=env["POLY_API_PASSPHRASE"],
         )
         
         try:
